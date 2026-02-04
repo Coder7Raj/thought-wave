@@ -81,3 +81,39 @@ export const signOut = async (req, res) => {
     return res.status(500).json({ message: "sign out error", err });
   }
 };
+
+export const sentOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "user not found" });
+    }
+
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    user.resetOtp = otp;
+    user.otpExpires = Date.now() + 5 * 60 * 1000;
+    await user.save();
+    await sendOtpEmail(email, otp);
+    return res.status(200).json({ message: "otp sent to email successfully" });
+  } catch (err) {
+    return res.status(500).json({ message: "send otp error", err });
+  }
+};
+
+export const veryfyOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ email });
+    if (!user || user.resetOtp !== otp || user.otpExpires < Date.now()) {
+      return res.status(400).json({ message: "invalid or expired otp" });
+    }
+
+    user.resetOtp = undefined;
+    user.otpExpires = undefined;
+    await user.save();
+    return res.status(200).json({ message: "otp verified successfully" });
+  } catch (err) {
+    return res.status(500).json({ message: "verify otp error", err });
+  }
+};
