@@ -1,0 +1,9 @@
+import express from "express";
+import { getCurrentUser } from "../controllers/user.controller";
+import { isAuth } from "../middlewares/auth.middleware.js";
+
+const userRouter = express.Router();
+
+userRouter.get("/current_user", isAuth, getCurrentUser);
+
+export default userRouter;
