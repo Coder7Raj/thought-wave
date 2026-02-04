@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import getToken from "../utils/token.js";
 
-export const signup = async (req, res) => {
+export const signUp = async (req, res) => {
   try {
     const { fullName, email, password, mobile, role } = req.body;
 
@@ -45,5 +45,39 @@ export const signup = async (req, res) => {
     return res.status(201).json(user);
   } catch (err) {
     return res.status(500).json({ message: "sign up error", err });
+  }
+};
+
+export const signIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "user not found" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "invalid credentials" });
+    }
+    const token = await getToken(user._id);
+    res.cookie("token", token, {
+      secure: false,
+      sameSite: "strict",
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(500).json({ message: "sign in error", err });
+  }
+};
+
+export const signOut = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.status(200).json({ message: "signed out successfully" });
+  } catch (err) {
+    return res.status(500).json({ message: "sign out error", err });
   }
 };
