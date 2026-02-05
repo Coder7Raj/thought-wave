@@ -1,7 +1,13 @@
+import { Outlet } from "react-router-dom";
+
 function App() {
   return (
     <>
-      <p>front end is running</p>
+      <p>navbar</p>
+
+      <Outlet />
+
+      <p>footer</p>
     </>
   );
 }
