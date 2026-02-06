@@ -12,8 +12,6 @@ import { setUserData } from "../redux/user.slice";
 
 export default function Signin() {
   const primaryColor = "#ff4d2d";
-  //   const hoverColor = "#e64323";
-  const bgColor = "#fff9f6";
   const borderColor = "#ddd";
 
   const [showPassword, setShowPassword] = useState(false);
@@ -56,10 +54,7 @@ export default function Signin() {
     }
   };
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-2"
-      style={{ backgroundColor: bgColor }}
-    >
+    <div className="min-h-screen flex items-center justify-center p-2">
       <div
         className="bg-white rounded-xl shadow-lg w-full max-w-md p-8 border"
         style={{ borderColor: borderColor }}

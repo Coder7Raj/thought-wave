@@ -12,7 +12,6 @@ import { setUserData } from "../redux/user.slice";
 
 export default function Signup() {
   const primaryColor = "#ff4d2d";
-  const bgColor = "#fff9f6";
   const borderColor = "#ddd";
 
   const [showPassword, setShowPassword] = useState(false);
@@ -70,10 +69,7 @@ export default function Signup() {
   return (
     <>
       <section>
-        <div
-          className="min-h-screen flex items-center justify-center p-2"
-          style={{ backgroundColor: bgColor }}
-        >
+        <div className="min-h-screen flex items-center justify-center p-2">
           <div
             className="bg-white rounded-xl shadow-lg w-full max-w-md p-8 border"
             style={{ borderColor: borderColor }}
