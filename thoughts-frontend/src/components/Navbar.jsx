@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/thoughts.png";
 
 export default function Navbar() {
   const countries = [
@@ -104,7 +105,10 @@ export default function Navbar() {
               </li>
             </ul>
           </div>
-          <Link to={"/"}>Thoughts Wave</Link>
+          <Link to={"/"} className="flex items-end">
+            <img className="w-10" src={logo} alt="logo" />
+            <span className="text-2xl text-black">Thoughts Wave</span>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
