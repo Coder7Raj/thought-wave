@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.4",
+    "daisyui": "^4.12.24",
     "firebase": "^12.8.0",
     "localforage": "^1.10.0",
     "match-sorter": "^8.2.0",

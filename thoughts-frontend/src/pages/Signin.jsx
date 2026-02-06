@@ -6,9 +6,9 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { serveruri } from "../App";
 import { auth } from "../firebase";
 import { setUserData } from "../redux/user.slice";
-import { serveruri } from "../routes";
 
 export default function Signin() {
   const primaryColor = "#ff4d2d";

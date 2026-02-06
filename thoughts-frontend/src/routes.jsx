@@ -3,8 +3,6 @@ import App from "./App";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
-export const serveruri = "http://localhost:5000";
-
 const router = createBrowserRouter([
   {
     path: "/",
