@@ -82,7 +82,7 @@ export const signOut = async (req, res) => {
   }
 };
 
-export const sentOtp = async (req, res) => {
+export const sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
@@ -101,7 +101,7 @@ export const sentOtp = async (req, res) => {
   }
 };
 
-export const veryfyOtp = async (req, res) => {
+export const verifyOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
     const user = await User.findOne({ email });
