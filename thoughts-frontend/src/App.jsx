@@ -5,16 +5,17 @@ import Navbar from "./components/Navbar";
 export const serveruri = "http://localhost:5000";
 
 function App() {
-  const signupLoc = useLocation().pathname === "/signup";
-  const signinLoc = useLocation().pathname === "/signin";
+  const isSignUpPage = useLocation().pathname === "/signup";
+  const isSignInPage = useLocation().pathname === "/signin";
+  const isDashboard = useLocation().pathname === "/user_dashboard";
 
   return (
     <section className="max-w-[425px] md:max-w-3xl lg:max-w-7xl mx-auto">
-      {!signupLoc && !signinLoc && <Navbar />}
+      {!isSignUpPage && !isSignInPage && !isDashboard && <Navbar />}
 
       <Outlet />
 
-      {!signupLoc && !signinLoc && <Footer />}
+      {!isSignUpPage && !isSignInPage && !isDashboard && <Footer />}
     </section>
   );
 }
