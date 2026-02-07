@@ -6,36 +6,45 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-    },
+
+    password: String,
+
     mobile: {
       type: String,
       required: true,
     },
+
     role: {
       type: String,
-      enum: ["user", "admin"],
-      reequired: true,
+      enum: ["user"],
+      default: "user",
     },
-    resetOtp: {
-      type: String,
-    },
+
+    thoughts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Thought",
+      },
+    ],
+
+    resetOtp: String,
+
     isOtpVerified: {
       type: Boolean,
       default: false,
     },
-    otpExpires: {
-      type: Date,
-    },
+
+    otpExpires: Date,
   },
   { timestamps: true },
 );
 
 const User = mongoose.model("User", userSchema);
+
 export default User;

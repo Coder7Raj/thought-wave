@@ -58,12 +58,12 @@ const thoughtSchema = new mongoose.Schema(
       default: 0,
     },
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
 thoughtSchema.index({ createdAt: -1 });
 thoughtSchema.index({ likes: -1 });
 
-export default mongoose.model("Thought", thoughtSchema);
+const Thought = mongoose.model("Thought", thoughtSchema);
+
+export default Thought;
