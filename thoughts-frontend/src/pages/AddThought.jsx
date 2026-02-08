@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { FaUtensils } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ export default function AddThought() {
       }
 
       const result = await axios.post(
-        `${serveruri}/api/item/add_item`,
+        `${serveruri}/api/thought/add_thought`,
         formData,
         { withCredentials: true },
       );
@@ -62,20 +61,20 @@ export default function AddThought() {
   };
 
   return (
-    <div className="flex justify-center flex-col items-center p-6 bg-gradient-to-br from-orange-50 relative to-white min-h-screen">
+    <div className="flex justify-center flex-col items-center p-6 relative min-h-screen">
       <div
         className="absolute top-5 left-5 z-10 mb-2 cursor-pointer"
         onClick={() => navigate("/")}
       >
         <IoIosArrowBack size={35} className="text-[#ff4d2d]" />
       </div>
-      <div className="max-w-lg w-full bg-white shadow-xl rounded-2xl p-8 border border-orange-100">
+      <div className="max-w-lg w-full bg-white rounded-2xl p-8">
         <div className="flex flex-col items-center mb-6">
-          <div className="bg-orange-100 p-4 rounded-full mb-4">
+          {/* <div className="bg-orange-100 p-4 rounded-full mb-4">
             <FaUtensils size={25} className="text-[#ff4d2d]" />
-          </div>
+          </div> */}
           <div className="text-2xl font-medium text-gray-600">
-            Add Your Thought;s
+            Add Your Thought's
           </div>
         </div>
         {/* form */}
@@ -87,35 +86,39 @@ export default function AddThought() {
             <input
               type="text"
               placeholder="Enter Thought Title"
-              className="w-full py-2 px-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-white w-full py-2 px-1 border-none outline-none rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setTitle(e.target.value)}
               value={title}
             />
+            <hr />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Description:
             </label>
-            <input
+            <textarea
               type="text"
               placeholder="Enter Thought Description"
-              className="w-full py-2 px-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-white w-full py-2 px-1 border-none outline-none rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setDescript(e.target.value)}
               value={descript}
             />
+            <hr />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Category:
             </label>
             <select
-              className="w-full py-2 px-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-white text-black w-full py-2 px-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setCategory(e.target.value)}
               value={category}
             >
-              <option value="">Select Category</option>
+              <option className="bg-white" value="">
+                Select Category
+              </option>
               {categories?.map((cat, index) => (
-                <option value={cat} key={index}>
+                <option className="bg-white text-black" value={cat} key={index}>
                   {cat}
                 </option>
               ))}

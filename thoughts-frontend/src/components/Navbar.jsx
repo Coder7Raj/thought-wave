@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="navbar">
+      <div className="navbar bg-purple-400">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -106,7 +106,7 @@ export default function Navbar() {
             </ul>
           </div>
           <Link to={"/"} className="flex items-end">
-            <img className="w-10" src={logo} alt="logo" />
+            <img className="w-10 rounded-xl" src={logo} alt="logo" />
             <span className="text-2xl text-black">Thoughts Wave</span>
           </Link>
         </div>
@@ -142,6 +142,7 @@ export default function Navbar() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
+                  <hr />
 
                   {/* Result list */}
                   <ul className="max-h-48 overflow-y-auto">
@@ -159,11 +160,15 @@ export default function Navbar() {
         <div className="navbar-end">
           {user?.email ? (
             <div>
-              <button className="btn btn-outline">SignOut</button>
+              <button className="px-4 py-2 rounded-md text-black border">
+                SignOut
+              </button>
             </div>
           ) : (
             <div>
-              <button className="btn btn-outline">SignIn</button>
+              <button className="px-4 py-2 rounded-md text-black border">
+                SignIn
+              </button>
             </div>
           )}
           <div>
