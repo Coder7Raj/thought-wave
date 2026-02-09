@@ -169,7 +169,7 @@ export default function Signup() {
               </span>
             </div>
             {/* role */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label
                 htmlFor="role"
                 className="block text-gray-700 font-medium mb-1"
@@ -193,7 +193,7 @@ export default function Signup() {
                   </button>
                 ))}
               </div>
-            </div>
+            </div> */}
             <button
               onClick={() => handleSignUp()}
               className="w-full font-semibold text-white rounded-lg py-2 transition duration-200 bg-[#ff4d2d] hover:bg-[#e64323] cursor-pointer"

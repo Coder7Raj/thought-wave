@@ -11,7 +11,7 @@ export default function Navbar() {
   const { userData, currentCountry } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log("userData", userData);
   const countries = [
     "Bangladesh",
     "India",

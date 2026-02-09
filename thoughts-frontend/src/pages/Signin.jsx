@@ -29,7 +29,8 @@ export default function Signin() {
         },
         { withCredentials: true },
       );
-      console.log("result", result);
+      dispatch(setUserData(result.data));
+      console.log("signin result", result);
       toast.success("Signin successful!"); // show success toast
     } catch (error) {
       toast.error(error.response?.data?.message || "SignIn failed");
