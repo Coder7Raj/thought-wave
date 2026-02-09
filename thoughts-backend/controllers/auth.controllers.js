@@ -128,34 +128,36 @@ export const resetPassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
-    user.isOtpVerified = false;
+    user.isOtpVerified = true;
     await user.save();
     return res.status(200).json({ message: "password reset successfully" });
   } catch (err) {
     return res.status(500).json({ message: "reset password error", err });
   }
 };
-
 export const googleAuth = async (req, res) => {
   try {
-    const { fullName, email, mobile, role } = req.body;
+    const { fullName, email } = req.body;
+
     let user = await User.findOne({ email });
+
     if (!user) {
-      user = new User({
+      user = await User.create({
         fullName,
         email,
-        mobile,
-        role,
+        authProvider: "google",
       });
     }
 
     const token = await getToken(user._id);
+
     res.cookie("token", token, {
       secure: false,
       sameSite: "strict",
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+
     return res.status(200).json(user);
   } catch (err) {
     return res.status(500).json({ message: "google auth error", err });
