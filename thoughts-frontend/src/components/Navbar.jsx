@@ -1,8 +1,17 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { serveruri } from "../App";
 import logo from "../assets/thoughts.png";
+import { setUserData } from "../redux/user.slice";
 
 export default function Navbar() {
+  const { userData, currentCountry } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const countries = [
     "Bangladesh",
     "India",
@@ -34,8 +43,22 @@ export default function Navbar() {
     };
   }, []);
 
-  const user = { email: "das@gmail.com" };
-
+  const handleLogout = async () => {
+    try {
+      const result = await axios.get(`${serveruri}/api/auth/logout`, {
+        withCredentials: true,
+      });
+      if (result?.data?.success) {
+        dispatch(setUserData(null));
+      }
+      toast.success("Logged out successfully!");
+      navigate("/signin");
+    } catch (error) {
+      toast.error(
+        `${error?.response?.data?.message} || ${"Something went wrong"}`,
+      );
+    }
+  };
   return (
     <>
       <div className="navbar bg-purple-400">
@@ -158,10 +181,13 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          {user?.email ? (
+          {userData?.email ? (
             <div>
-              <button className="px-4 py-2 rounded-md text-black border">
-                SignOut
+              <button
+                onClick={() => handleLogout}
+                className="px-4 py-2 rounded-md text-black border"
+              >
+                Logout
               </button>
             </div>
           ) : (
@@ -171,9 +197,10 @@ export default function Navbar() {
               </button>
             </div>
           )}
-          <div>
+          <p>C:{currentCountry}</p>
+          {/* <div>
             <img src="" alt="" />
-          </div>
+          </div> */}
         </div>
       </div>
     </>
