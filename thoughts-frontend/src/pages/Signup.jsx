@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { serveruri } from "../App";
 import { auth } from "../firebase";
 import { setUserData } from "../redux/user.slice";
@@ -13,6 +13,7 @@ import { setUserData } from "../redux/user.slice";
 export default function Signup() {
   const primaryColor = "#ff4d2d";
   const borderColor = "#ddd";
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("user");
@@ -37,7 +38,7 @@ export default function Signup() {
       );
       dispatch(setUserData(result.data));
       console.log("result", result);
-      toast.success("Signup successful!");
+      toast.success("Signup successful!") ? navigate("/") : null;
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
     }
@@ -95,7 +96,7 @@ export default function Signup() {
               </label>
               <input
                 type="text"
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
                 placeholder="Enter your full name"
                 style={{ border: `1px solid ${borderColor}` }}
                 onChange={(e) => setFullName(e.target.value)}
@@ -113,7 +114,7 @@ export default function Signup() {
               </label>
               <input
                 type="email"
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
                 placeholder="Enter your email"
                 style={{ border: `1px solid ${borderColor}` }}
                 onChange={(e) => setEmail(e.target.value)}
@@ -131,7 +132,7 @@ export default function Signup() {
               </label>
               <input
                 type="number"
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
                 placeholder="Enter your mobile number"
                 style={{ border: `1px solid ${borderColor}` }}
                 onChange={(e) => setMobile(e.target.value)}
@@ -149,7 +150,7 @@ export default function Signup() {
               </label>
               <input
                 type={showPassword ? "text" : "password"}
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500 pr-10"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500 pr-10"
                 placeholder="Enter your password"
                 style={{ border: `1px solid ${borderColor}` }}
                 onChange={(e) => setPassword(e.target.value)}

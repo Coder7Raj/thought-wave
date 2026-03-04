@@ -181,7 +181,7 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          {userData?.email ? (
+          {userData?.role == "user" ? (
             <div>
               <button
                 onClick={() => handleLogout}
@@ -192,7 +192,10 @@ export default function Navbar() {
             </div>
           ) : (
             <div>
-              <button className="px-4 py-2 rounded-md text-black border">
+              <button
+                onClick={() => navigate("/signin")}
+                className="px-4 py-2 rounded-md text-black border"
+              >
                 SignIn
               </button>
             </div>
