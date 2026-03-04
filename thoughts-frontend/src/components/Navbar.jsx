@@ -11,7 +11,7 @@ export default function Navbar() {
   const { userData, currentCountry } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("userData", userData);
+  // console.log("userData", userData);
   const countries = [
     "Bangladesh",
     "India",
@@ -45,18 +45,19 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const result = await axios.get(`${serveruri}/api/auth/logout`, {
-        withCredentials: true,
-      });
+      const result = await axios.post(
+        `${serveruri}/api/auth/logout`,
+        {},
+        { withCredentials: true },
+      );
+
       if (result?.data?.success) {
         dispatch(setUserData(null));
+        toast.success("Logged out successfully!");
+        navigate("/signin");
       }
-      toast.success("Logged out successfully!");
-      navigate("/signin");
     } catch (error) {
-      toast.error(
-        `${error?.response?.data?.message} || ${"Something went wrong"}`,
-      );
+      toast.error(error?.response?.data?.message || "Something went wrong");
     }
   };
   return (
@@ -184,7 +185,7 @@ export default function Navbar() {
           {userData?.role == "user" ? (
             <div>
               <button
-                onClick={() => handleLogout}
+                onClick={handleLogout}
                 className="px-4 py-2 rounded-md text-black border"
               >
                 Logout
