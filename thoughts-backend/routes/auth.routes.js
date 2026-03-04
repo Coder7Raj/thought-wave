@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getMe,
   googleAuth,
   resetPassword,
   sendOtp,
@@ -11,6 +12,7 @@ import {
 
 const authRouter = express.Router();
 
+authRouter.get("/me", getMe);
 authRouter.post("/signup", signUp);
 authRouter.post("/signin", signIn);
 authRouter.post("/logout", signOut);

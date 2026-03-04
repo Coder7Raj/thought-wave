@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import getToken from "../utils/token.js";
 
@@ -45,6 +46,24 @@ export const signUp = async (req, res) => {
     return res.status(201).json(user);
   } catch (err) {
     return res.status(500).json({ message: "sign up error", err });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.userId).select("-password");
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
   }
 };
 
