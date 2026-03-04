@@ -4,18 +4,25 @@ import uploadOnCloudinary from "../utils/cloudinary.js";
 
 export const addThought = async (req, res) => {
   try {
-    const { title, description, country, category } = req.body;
+    const { title, description, country = "", category } = req.body;
 
-    let image = "";
-
-    if (req.file) {
-      const uploaded = await uploadOnCloudinary(req.file.path);
-      image = uploaded?.secure_url;
+    // Validation
+    if (!title || !description || !category) {
+      return res.status(400).json({
+        success: false,
+        message: "Title, description, and category are required",
+      });
     }
 
-    // Find logged in user
-    const user = await User.findById(req.userId);
+    // Handle image upload if present
+    let image = "";
+    if (req.file) {
+      const uploaded = await uploadOnCloudinary(req.file.path);
+      image = uploaded?.secure_url || "";
+    }
 
+    // Find authenticated user
+    const user = await User.findById(req.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -30,11 +37,11 @@ export const addThought = async (req, res) => {
       author: user._id,
     });
 
-    // Push thought into user
+    // Add thought to user
     user.thoughts.push(thought._id);
     await user.save();
 
-    // Populate thoughts
+    // Populate user's thoughts
     await user.populate({
       path: "thoughts",
       options: { sort: { createdAt: -1 } },
@@ -43,11 +50,14 @@ export const addThought = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Thought created successfully",
+      thought,
       user,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Error adding thought: ${err.message}`,
+    console.error("Error in addThought:", err);
+    return res.status(500).json({
+      success: false,
+      message: `Server error: ${err.message}`,
     });
   }
 };
