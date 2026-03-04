@@ -118,7 +118,7 @@ export default function Signin() {
           </span>
           <div className="text-right mb-4">
             <Link
-              to="/forgot_password"
+              to="/reset_password"
               className="text-right text-sm text-[#ff4d2d] font-medium transition-colors"
             >
               Forgot Password?

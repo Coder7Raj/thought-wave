@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import AddThought from "./pages/AddThought";
+import ForgotPass from "./pages/ForgotPass";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: <Signin />,
+      },
+      {
+        element: <ForgotPass />,
+        path: "/reset_password",
       },
     ],
   },
