@@ -15,9 +15,7 @@ export default function ForgotPass() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Handler functions can be added here for form submissions
   const handleSendOTP = async () => {
-    // Logic to send OTP to the provided email
     try {
       const result = await axios.post(
         `${serveruri}/api/auth/send_otp`,
@@ -26,14 +24,14 @@ export default function ForgotPass() {
       );
       toast.success("OTP sent to your email!");
       console.log(" result", result);
-      setStep(2); // Move to OTP verification step
+      setStep(2);
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to send OTP");
     }
   };
+
   // Handle OTP verification
   const handleVerifyOTP = async () => {
-    // Logic to verify the OTP
     try {
       const result = await axios.post(
         `${serveruri}/api/auth/verify_otp`,
@@ -42,17 +40,18 @@ export default function ForgotPass() {
       );
       toast.success("OTP verified successfully!");
       console.log(" result", result);
-      setStep(3); // Move to password reset step
+      setStep(3);
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to verify OTP");
     }
   };
+
   // Handle password reset
   const handleResetPassword = async () => {
     if (newPassword != confirmPassword) {
       return toast.error("Passwords do not match!");
     }
-    // Logic to reset the password
+
     try {
       const result = await axios.post(
         `${serveruri}/api/auth/reset_password`,
@@ -61,7 +60,7 @@ export default function ForgotPass() {
       );
       toast.success("Password reset successful!");
       console.log(" result", result);
-      navigate("/signin"); // Redirect to sign-in page after successful password reset
+      navigate("/signin");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to reset password");
     }
@@ -92,7 +91,7 @@ export default function ForgotPass() {
               </label>
               <input
                 type="email"
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-orange-500"
                 placeholder="Enter your email"
                 style={{ border: `1px solid #ddd` }}
                 onChange={(e) => setEmail(e.target.value)}
@@ -119,7 +118,7 @@ export default function ForgotPass() {
               </label>
               <input
                 type={showOTP ? "text" : "password"}
-                className="w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:border-orange-500"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:border-orange-500"
                 placeholder="Enter the OTP"
                 style={{ border: `1px solid #ddd` }}
                 onChange={(e) => setOtp(e.target.value)}
@@ -157,7 +156,7 @@ export default function ForgotPass() {
               </label>
               <input
                 type={newPassword ? "text" : "password"}
-                className="w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:border-orange-500"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:border-orange-500"
                 placeholder="Enter your new password"
                 style={{ border: `1px solid #ddd` }}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -184,8 +183,8 @@ export default function ForgotPass() {
               </label>
               <input
                 type={confirmPassword ? "text" : "password"}
-                className="w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:border-orange-500"
-                placeholder="Enter your confirm password"
+                className="bg-white text-black w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:border-orange-500"
+                placeholder="Confirm password"
                 style={{ border: `1px solid #ddd` }}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}

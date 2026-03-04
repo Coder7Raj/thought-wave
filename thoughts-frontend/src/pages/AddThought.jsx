@@ -3,7 +3,8 @@ import { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { serveruri } from "../App";
+import { serveruri } from "../App.jsx";
+import { setMyThoughts } from "../redux/thoughtSlice.js";
 
 export default function AddThought() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export default function AddThought() {
         formData,
         { withCredentials: true },
       );
-      dispatch(setMyShopData(result.data));
+      dispatch(setMyThoughts(result.data));
       setLoading(false);
       navigate("/");
     } catch (error) {
@@ -86,7 +87,7 @@ export default function AddThought() {
             <input
               type="text"
               placeholder="Enter Thought Title"
-              className="bg-white w-full py-2 px-1 border-none outline-none rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-white text-black w-full py-2 px-1 border-none outline-none rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setTitle(e.target.value)}
               value={title}
             />
@@ -99,7 +100,7 @@ export default function AddThought() {
             <textarea
               type="text"
               placeholder="Enter Thought Description"
-              className="bg-white w-full py-2 px-1 border-none outline-none rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-white text-black w-full py-2 px-1 border-none outline-none rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setDescript(e.target.value)}
               value={descript}
             />

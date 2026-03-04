@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { serveruri } from "../App";
 import { auth } from "../firebase";
 import { setUserData } from "../redux/user.slice";
@@ -13,6 +13,7 @@ import { setUserData } from "../redux/user.slice";
 export default function Signin() {
   const primaryColor = "#ff4d2d";
   const borderColor = "#ddd";
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,7 +32,8 @@ export default function Signin() {
       );
       dispatch(setUserData(result.data));
       console.log("signin result", result);
-      toast.success("Signin successful!"); // show success toast
+      toast.success("Signin successful!");
+      navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message || "SignIn failed");
     }
