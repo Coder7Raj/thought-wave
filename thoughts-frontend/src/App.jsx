@@ -9,10 +9,13 @@ import { setUserData } from "./redux/user.slice";
 export const serveruri = "http://localhost:5000";
 
 function App() {
-  const isSignUpPage = useLocation().pathname === "/signup";
-  const isSignInPage = useLocation().pathname === "/signin";
-  const isDashboard = useLocation().pathname === "/user_dashboard";
   const dispatch = useDispatch();
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const isSignUpPage = pathname === "/signup";
+  const isSignInPage = pathname === "/signin";
+  const isDashboard = pathname === "/user_dashboard";
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,7 +31,8 @@ function App() {
     };
 
     fetchUser();
-  }, []);
+  }, [dispatch]);
+
   return (
     <section className="max-w-[425px] md:max-w-3xl lg:max-w-7xl mx-auto">
       {!isSignUpPage && !isSignInPage && !isDashboard && <Navbar />}

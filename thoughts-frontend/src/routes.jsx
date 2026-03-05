@@ -3,6 +3,7 @@ import App from "./App";
 import AddThought from "./pages/AddThought";
 import ForgotPass from "./pages/ForgotPass";
 import Home from "./pages/Home";
+import ShowAllThoughts from "./pages/ShowAllThoughts";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
@@ -14,6 +15,12 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+        children: [
+          {
+            path: "/",
+            element: <ShowAllThoughts />,
+          },
+        ],
       },
       {
         path: "/add_thought",
