@@ -61,3 +61,17 @@ export const addThought = async (req, res) => {
     });
   }
 };
+
+export const getAllThoughts = async (req, res) => {
+  try {
+    const thoughts = await Thought.find().sort({ createdAt: -1 });
+
+    if (!thoughts) {
+      return res.status(404).json({ message: "No thoughts found" });
+    }
+
+    return res.status(200).json(thoughts);
+  } catch (error) {
+    return res.status(500).json({ message: `get thoughts error ${error}` });
+  }
+};
