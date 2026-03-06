@@ -14,7 +14,7 @@ export default function useGetCurrentUser() {
           withCredentials: true,
         });
 
-        dispatch(setUserData(XPathResult.data));
+        dispatch(setUserData(res.data));
       } catch (err) {
         console.log("error fetching current user", err);
       }

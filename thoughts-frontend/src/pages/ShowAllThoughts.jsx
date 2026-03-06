@@ -24,6 +24,8 @@ export default function ShowAllThoughts() {
     fetchThoughts();
   }, []);
 
+  //
+
   return (
     <>
       {loading && <p className="text-center mt-10">Loading thoughts...</p>}
@@ -58,7 +60,12 @@ export default function ShowAllThoughts() {
             <div className="flex justify-between text-sm text-gray-600">
               <span>👍 {thought.likes}</span>
               <span>👀 {thought.views}</span>
-              <span>{new Date(thought.createdAt).toLocaleDateString()}</span>
+              <span>
+                {new Date(thought.createdAt).toLocaleString("en-US", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                })}
+              </span>
             </div>
           </div>
         ))}
