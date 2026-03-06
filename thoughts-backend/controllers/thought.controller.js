@@ -4,7 +4,15 @@ import uploadOnCloudinary from "../utils/cloudinary.js";
 
 export const addThought = async (req, res) => {
   try {
-    const { title, description, country = "", category } = req.body;
+    const {
+      title,
+      description,
+      country = "",
+      city = "",
+      state = "",
+      address = "",
+      category,
+    } = req.body;
 
     // Validation
     if (!title || !description || !category) {
@@ -16,9 +24,11 @@ export const addThought = async (req, res) => {
 
     // Handle image upload if present
     let image = "";
-    if (req.file) {
+    if (req.file?.path) {
       const uploaded = await uploadOnCloudinary(req.file.path);
-      image = uploaded?.secure_url || "";
+      if (uploaded) {
+        image = uploaded.secure_url;
+      }
     }
 
     // Find authenticated user
@@ -33,6 +43,9 @@ export const addThought = async (req, res) => {
       description,
       image,
       country,
+      city,
+      state,
+      address,
       category,
       author: user._id,
     });
@@ -64,9 +77,11 @@ export const addThought = async (req, res) => {
 
 export const getAllThoughts = async (req, res) => {
   try {
-    const thoughts = await Thought.find().sort({ createdAt: -1 });
+    const thoughts = await Thought.find()
+      .populate("author", "fullName email")
+      .sort({ createdAt: -1 });
 
-    if (!thoughts) {
+    if (thoughts.length === 0) {
       return res.status(404).json({ message: "No thoughts found" });
     }
 

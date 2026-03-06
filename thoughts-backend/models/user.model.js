@@ -17,13 +17,32 @@ const userSchema = new mongoose.Schema(
 
     mobile: {
       type: String,
-      required: false,
     },
 
     role: {
       type: String,
       enum: ["user"],
       default: "user",
+    },
+
+    country: {
+      type: String,
+      default: "",
+    },
+
+    city: {
+      type: String,
+      default: "",
+    },
+
+    state: {
+      type: String,
+      default: "",
+    },
+
+    address: {
+      type: String,
+      default: "",
     },
 
     thoughts: [

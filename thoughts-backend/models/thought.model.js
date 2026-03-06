@@ -36,6 +36,21 @@ const thoughtSchema = new mongoose.Schema(
       default: "",
     },
 
+    city: {
+      type: String,
+      default: "",
+    },
+
+    state: {
+      type: String,
+      default: "",
+    },
+
+    address: {
+      type: String,
+      default: "",
+    },
+
     category: {
       type: String,
       enum: categories,

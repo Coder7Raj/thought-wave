@@ -6,7 +6,17 @@ import getToken from "../utils/token.js";
 
 export const signUp = async (req, res) => {
   try {
-    const { fullName, email, password, mobile, role } = req.body;
+    const {
+      fullName,
+      email,
+      mobile,
+      password,
+      role,
+      country = "",
+      city = "",
+      state = "",
+      address = "",
+    } = req.body;
 
     let user = await User.findOne({ email });
     if (user) {
@@ -27,15 +37,21 @@ export const signUp = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // ✅ Include location fields
     user = new User({
       fullName,
       email,
       password: hashedPassword,
       mobile,
       role,
+      country,
+      city,
+      state,
+      address,
     });
 
     await user.save();
+
     const token = await getToken(user._id);
     res.cookie("token", token, {
       secure: false,

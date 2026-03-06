@@ -5,13 +5,16 @@ export const getCurrentUser = async (req, res) => {
     const userId = req.userId;
 
     if (!userId) {
-      return res.status(401).json({ message: "no user id" });
+      return res.status(401).json({ message: "No user id" });
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({
+      path: "thoughts",
+      options: { sort: { createdAt: -1 } },
+    });
 
     if (!user) {
-      return res.status(404).json({ message: "user not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     return res.status(200).json({ user });
