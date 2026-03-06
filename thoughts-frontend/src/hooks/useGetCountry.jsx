@@ -27,12 +27,14 @@ export default function useGetCountry() {
       dispatch(setCurrentCity(result?.data?.results[0].city));
       dispatch(setCurrentState(result?.data?.results[0].state));
 
-      setCurrentAddress(
-        result?.data?.results[0].address_line2 ||
-          result?.data?.results[0].address_line1,
+      dispatch(
+        setCurrentAddress(
+          result?.data?.results[0].address_line2 ||
+            result?.data?.results[0].address_line1,
+        ),
       );
 
-      console.log(result?.data);
+      console.log("c data", result?.data);
     });
   }, [dispatch, userData]);
 }

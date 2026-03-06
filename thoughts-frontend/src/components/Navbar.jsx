@@ -201,7 +201,7 @@ export default function Navbar() {
               </button>
             </div>
           )}
-          <p>C:{currentCountry}</p>
+          <p className="text-black text-sm">{currentCountry}</p>
           {/* <div>
             <img src="" alt="" />
           </div> */}

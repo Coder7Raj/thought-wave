@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { serveruri } from "../App";
 import { auth } from "../firebase";
@@ -22,9 +22,15 @@ export default function Signup() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const { currentCountry, currentCity, currentState, currentAddress } =
+    useSelector((state) => state.user);
 
   const handleSignUp = async () => {
     try {
+      if (!currentCountry || !currentCity || !currentState || !currentAddress) {
+        toast.error("Location not detected yet. Please allow location access!");
+        return;
+      }
       const result = await axios.post(
         `${serveruri}/api/auth/signup`,
         {
@@ -33,6 +39,10 @@ export default function Signup() {
           mobile,
           password,
           role,
+          country: currentCountry,
+          city: currentCity,
+          state: currentState,
+          address: currentAddress,
         },
         { withCredentials: true },
       );

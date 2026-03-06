@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
+import useGetCountry from "../src/hooks/useGetCountry.jsx";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { setUserData } from "./redux/user.slice";
@@ -9,6 +10,7 @@ import { setUserData } from "./redux/user.slice";
 export const serveruri = "http://localhost:5000";
 
 function App() {
+  useGetCountry();
   const dispatch = useDispatch();
   const location = useLocation();
   const pathname = location.pathname;
